@@ -279,8 +279,7 @@ const ReactRecorder = () => {
          <section>
             <div className="app-container">
                <header className="header ">
-                  <div className="flex flex-wrap md:justify-center gap-10 md:gap-40">
-                     <div className="hidden md:flex ">Tracklist</div>
+                  <div className="flex flex-wrap md:justify-center gap-10 md:gap-[100px]">
                      {recordedBlobs.length > 0 && (
                         <div>
                            <button
@@ -298,14 +297,14 @@ const ReactRecorder = () => {
                               onClick={startHandle}
                               className="bg-[#fff] text-[#111] rounded-md py-1 px-3 font-semibold text-[16px]"
                            >
-                              Start
+                              <span className="text-[1.2rem]"> ◘</span> REC
                            </button>
                         ) : (
                            <button
                               onClick={stopHandle}
                               className="bg-[#fff] text-[#111] rounded-md py-1 px-3 font-semibold text-[16px]"
                            >
-                              Stop
+                              <span className="text-[1.2rem]"> ■ </span> Stop
                            </button>
                         )}
                      </div>
@@ -316,12 +315,14 @@ const ReactRecorder = () => {
                               onClick={playAllHandle}
                               className="bg-[#fff] text-[#111] rounded-md py-1 px-3 font-semibold text-[16px]"
                            >
-                              Play All
+                              <span className="text-[1.2rem]"> ► </span> Play
+                              All
                            </button>
                         </div>
                      )}
                      <div className="bg-[#fff] text-[#111] rounded-md  px-3 font-semibold ] mb-4 hidden md:flex">
-                        <button className="bg-[#fff] text-[#111] rounded-md py-1 px-3 font-semibold text-[16px] ">
+                        <button className="bg-[#fff] text-[#111] rounded-md py-1 font-semibold text-[16px] flex gap-2 ">
+                           <span className="text-black ">🕒 </span>
                            <AudioTimer
                               isRunning={isRunning}
                               elapsedTime={elapsedTime}
@@ -329,11 +330,27 @@ const ReactRecorder = () => {
                            />
                         </button>
                      </div>
+
+                     {recordedBlobs.length > 0 && (
+                        <div className="bg-[#fff] text-[#111] rounded-md font-semibold ] mb-4 flex">
+                           <button
+                              onClick={exportCombinedAudio}
+                              className="bg-[#fff] text-[#111] rounded-md py-1 px-3 font-semibold text-[16px]"
+                           >
+                              <span className="text-black text-[1.2rem] ">
+                                 ♫{" "}
+                              </span>{" "}
+                              Export Combined Audio as WAV
+                           </button>
+                        </div>
+                     )}
                   </div>
-                  <div className="w-full flex gap-20 mt-10 md:mt-0">
-                     <div className="flex flex-col justify-center align-middle text-[1.3rem] w-[5%]">
-                        Track 1
+                  <div className="hidden md:flex uppercase  ">Tracklist</div>
+                  <div className="w-full flex flex-col md:flex-row gap-10 md:gap-20 mt-10 md:mt-0">
+                     <div className="flex flex-col justify-center align-middle text-[1.3rem] md:w-[5%]">
+                        Recording Track
                      </div>
+
                      <ReactMic
                         record={voice}
                         className="sound-wave w-full"
@@ -341,28 +358,45 @@ const ReactRecorder = () => {
                         strokeColor="#000000"
                      />
                   </div>
-               </header>
-
-               {recordedBlobs.map((blobURL, index) => (
-                  <div className="pt-10 md:pt-0" key={index}>
-                     <audio
-                        ref={(ref) => (multiAudioRefs.current[index] = ref)}
-                        src={blobURL}
-                        controls
-                     />
-                     <input
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        value={volumeLevels[index]}
-                        onChange={(e) =>
-                           handleVolumeChange(index, parseFloat(e.target.value))
-                        }
-                     />
-                     <button onClick={() => removeAudio(index)}>Remove</button>
+                  <div className="flex gap-40">
+                 
+                     <div className="flex flex-col">
+                        {recordedBlobs.map((blobURL, index) => (
+                           <div className="pt-10 flex gap-12 md:gap-40" key={index}>
+                              <div className="flex flex-col justify-center align-middle md:text-[1.3rem]  md:w-[10%]">
+                                 Track {index + 1}
+                              </div>
+                              <audio
+                                 ref={(ref) =>
+                                    (multiAudioRefs.current[index] = ref)
+                                 }
+                                 src={blobURL}
+                                 controls
+                              />
+                              <div className="hidden md:flex md:flex-col">
+                              <label>Volumen</label>
+                              <input
+                                 type="range"
+                                 min="0"
+                                 max="1"
+                                 step="0.01"
+                                 value={volumeLevels[index]}
+                                 onChange={(e) =>
+                                    handleVolumeChange(
+                                       index,
+                                       parseFloat(e.target.value)
+                                    )
+                                 }
+                              />
+                              </div>
+                              <button className="bg-red-700 rounded p-3" onClick={() => removeAudio(index)}>
+                                 Remove
+                              </button>
+                           </div>
+                        ))}
+                     </div>
                   </div>
-               ))}
+               </header>
 
                <audio ref={audioRef} style={{ display: "none" }} />
             </div>
