@@ -1,0 +1,76 @@
+section {
+   margin: 0;
+   font-family: Arial, sans-serif;
+   background-color: #1c1c1c;
+   color: #fff;
+}
+
+.app-container {
+   display: grid;
+   grid-template-rows: auto 1fr auto;
+   grid-template-columns: 200px 1fr;
+   height: 100vh;
+   margin: 0 auto;
+}
+
+.header {
+   grid-column: 1 / -1;
+   background-color: #2e2e2e;
+   padding: 10px;
+
+   align-items: center;
+   justify-content: space-between;
+}
+
+.track-list {
+   background-color: #1c1c1c;
+   padding: 10px;
+   overflow-y: auto;
+   border-right: 1px solid #333;
+}
+
+.waveform-display {
+   background-color: #333;
+   padding: 10px;
+   overflow-y: auto;
+}
+
+.mixer {
+   grid-column: 1 / -1;
+   background-color: #222;
+   padding: 10px;
+   display: flex;
+   justify-content: space-around;
+   border-top: 1px solid #333;
+}
+
+.piano-roll {
+   grid-column: 1 / -1;
+   background-color: #444;
+   padding: 10px;
+   overflow-y: auto;
+   border-top: 1px solid #333;
+}
+
+.track {
+   margin-bottom: 10px;
+}
+
+.waveform {
+   background-color: #555;
+   height: 50px;
+   margin-bottom: 10px;
+}
+
+.fader {
+   background-color: #666;
+   height: 100px;
+   width: 30px;
+   margin: 0 auto;
+   border-radius: 5px;
+}
+
+.piano-keys {
+   background-color: #777;
+   height: 50px;
+}

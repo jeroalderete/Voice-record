@@ -21,9 +21,9 @@ const AudioTimer = ({ isRunning,
     const milliseconds = elapsedTime % 100;
 
     return (
-        <div className=" text-[25px] mt-4 font-semibold " >
+        <div className=" text-[16px]  font-semibold " >
             <div className="time">
-                {hours}:{minutes.toString().padStart(2, "0")}:
+               Timeline: {hours}:{minutes.toString().padStart(2, "0")}:
                 <span className=" w-[23px] inline-block "> {seconds.toString().padStart(2, "0")}:</span>
                 <span className=" w-[23px] inline-block ml-3" >{milliseconds.toString().padStart(2, "0")}</span>
             </div>
